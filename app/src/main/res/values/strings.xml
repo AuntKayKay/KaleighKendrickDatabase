@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">KaleighKendrickDatabase</string>
+    <string name="action_settings">Settings</string>
+    <string name="ProductIDLabel">Product ID</string>
+    <string name="ProductIDText">Not Assigned</string>
+    <string name="ProductNameLabel">Product Name</string>
+    <string name="ProductQuantityLabel">Product Quantity</string>
+    <string name="ProductQuantityText"></string>
+    <string name="ProductNameText"></string>
+    <string name="DeleteButton">Delete</string>
+    <string name="FindButton">Find</string>
+    <string name="AddButton">Add</string>
+</resources>
