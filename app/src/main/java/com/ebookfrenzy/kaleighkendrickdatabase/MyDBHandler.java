@@ -1,14 +1,11 @@
 package com.ebookfrenzy.kaleighkendrickdatabase;
 
-/**
- * Created by Kaleigh on 2/23/2016.
- */
-
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
+
 
 public class MyDBHandler extends SQLiteOpenHelper {
 
@@ -59,6 +56,28 @@ public class MyDBHandler extends SQLiteOpenHelper {
         return product;
     }
 
+    public boolean updateProduct(Product product) {
+
+        boolean result = false;
+
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PRODUCTNAME, product.getProductName());
+        values.put(COLUMN_QUANTITY, product.getQuantity());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int recordsUpdated =
+                db.update(TABLE_PRODUCTS, values, COLUMN_ID + "=?",
+                        new String[]{String.valueOf(product.getID())});
+
+        if(recordsUpdated>0){
+            result = true;
+        }
+        db.close();
+        return result;
+    }
+
     public boolean deleteProduct(String productname) {
 
         boolean result = false;
@@ -75,6 +94,26 @@ public class MyDBHandler extends SQLiteOpenHelper {
             product.setID(Integer.parseInt(cursor.getString(0)));
             db.delete(TABLE_PRODUCTS, COLUMN_ID + " = ?",
                     new String[] { String.valueOf(product.getID()) });
+            cursor.close();
+            result = true;
+        }
+        db.close();
+        return result;
+    }
+
+    public boolean deleteAllProducts() {
+
+        boolean result = false;
+
+        String query = "Select * FROM " + TABLE_PRODUCTS;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        Product product = new Product();
+
+        if (cursor.moveToFirst()) {
+            db.delete(TABLE_PRODUCTS,null,null);
             cursor.close();
             result = true;
         }

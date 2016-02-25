@@ -43,6 +43,30 @@ public class DatabaseActivity extends AppCompatActivity {
         }
     }
 
+    public void updateProduct (View view) {
+        MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+
+        int id =
+                Integer.parseInt(idView.getText().toString());
+
+        int quantity =
+                Integer.parseInt(quantityBox.getText().toString());
+
+        Product product =
+                new Product(id, productBox.getText().toString(), quantity);
+
+        boolean result = dbHandler.updateProduct(product);
+
+        if (result)
+        {
+            idView.setText("Record Updated");
+            productBox.setText("");
+            quantityBox.setText("");
+        }
+        else
+            idView.setText("Update Failed");
+    }
+
     public void removeProduct (View view) {
         MyDBHandler dbHandler = new MyDBHandler(this, null,
                 null, 1);
@@ -53,6 +77,22 @@ public class DatabaseActivity extends AppCompatActivity {
         if (result)
         {
             idView.setText("Record Deleted");
+            productBox.setText("");
+            quantityBox.setText("");
+        }
+        else
+            idView.setText("No Match Found");
+    }
+
+    public void removeAllProducts (View view) {
+        MyDBHandler dbHandler = new MyDBHandler(this, null,
+                null, 1);
+
+        boolean result = dbHandler.deleteAllProducts();
+
+        if (result)
+        {
+            idView.setText("Records Deleted");
             productBox.setText("");
             quantityBox.setText("");
         }

@@ -5,9 +5,11 @@
     <string name="ProductIDText">Not Assigned</string>
     <string name="ProductNameLabel">Product Name</string>
     <string name="ProductQuantityLabel">Product Quantity</string>
-    <string name="ProductQuantityText"></string>
-    <string name="ProductNameText"></string>
+    <string name="ProductQuantityText"> </string>
+    <string name="ProductNameText"> </string>
     <string name="DeleteButton">Delete</string>
     <string name="FindButton">Find</string>
     <string name="AddButton">Add</string>
+    <string name="UpdateButton">Update</string>
+    <string name="ClearAllButton">Delete All Records</string>
 </resources>

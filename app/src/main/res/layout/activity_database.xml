@@ -99,11 +99,33 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/UpdateButton"
+                android:id="@+id/updateButton"
+                android:onClick="updateProduct" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/DeleteButton"
                 android:id="@+id/deleteButton"
                 android:layout_gravity="center_vertical"
                 android:onClick="removeProduct" />
+
         </LinearLayout>
     </TableLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ClearAllButton"
+            android:id="@+id/clearAllButton"
+            android:onClick="removeAllProducts" />
+    </LinearLayout>
 
 </LinearLayout>
