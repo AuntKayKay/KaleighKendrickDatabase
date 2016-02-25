@@ -15,17 +15,30 @@ public class DatabaseActivity extends AppCompatActivity {
     EditText quantityBox;
 
     public void newProduct (View view) {
+        int quantity = -1;
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
-
-        int quantity =
+        //Tries to parse the quantity to an integer.
+        //If that fails, it throws a stack trace.  quantity = -1
+        try{
+        quantity =
                 Integer.parseInt(quantityBox.getText().toString());
+        }catch (Throwable e) {
+            e.printStackTrace();
+        }
+        //If the quantity is greater than or equal to zero, it captures the input and tries to add the product.
+        if(quantity>=0) {
+            Product product =
+                    new Product(productBox.getText().toString(), quantity);
 
-        Product product =
-                new Product(productBox.getText().toString(), quantity);
+            dbHandler.addProduct(product);
+            idView.setText("Product Added");
+            productBox.setText("");
+            quantityBox.setText("");
+        } else {
+            //Displays "Failed to Add" if product add is unsuccessful.
+            idView.setText("Failed to Add");
+        }
 
-        dbHandler.addProduct(product);
-        productBox.setText("");
-        quantityBox.setText("");
     }
 
     public void lookupProduct (View view) {
@@ -44,27 +57,42 @@ public class DatabaseActivity extends AppCompatActivity {
     }
 
     public void updateProduct (View view) {
+        int id = 0;
+        boolean result = false;
+
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
+        //Tries to parse the ID of the productID text field to an integer.
+        //If that fails, it throws a stack trace.  ID = 0
+        try {
+            id =
+                    Integer.parseInt(idView.getText().toString());
+        }catch (Throwable e) {
+            e.printStackTrace();
+        }
 
-        int id =
-                Integer.parseInt(idView.getText().toString());
+        //If the ID is greater than zero, it captures the input and tries to update the product.
+        if(id>0) {
+            int quantity =
+                    Integer.parseInt(quantityBox.getText().toString());
 
-        int quantity =
-                Integer.parseInt(quantityBox.getText().toString());
+            Product product =
+                    new Product(id, productBox.getText().toString(), quantity);
 
-        Product product =
-                new Product(id, productBox.getText().toString(), quantity);
-
-        boolean result = dbHandler.updateProduct(product);
-
+            result = dbHandler.updateProduct(product);
+        }
+        //If everything is groovy, displays "Update Record"
         if (result)
         {
             idView.setText("Record Updated");
             productBox.setText("");
             quantityBox.setText("");
         }
+        //If everything isn't groovy, displays "Update Failed"
         else
             idView.setText("Update Failed");
+            productBox.setText("");
+            quantityBox.setText("");
+
     }
 
     public void removeProduct (View view) {
